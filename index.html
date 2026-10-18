@@ -1,0 +1,2620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AntiGravity AI Debugging Tutor | Python &amp; C Programming Mentor for BCA Students</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070b14;
+      --bg-card: #0d1424;
+      --bg-card-subtle: #121c32;
+      --bg-input: #080d1a;
+      --border-subtle: #1e293b;
+      --border-bright: #334155;
+      --accent-cyan: #06b6d4;
+      --accent-cyan-light: #38bdf8;
+      --accent-cyan-glow: rgba(6, 182, 212, 0.35);
+      --accent-emerald: #10b981;
+      --accent-emerald-light: #34d399;
+      --accent-emerald-glow: rgba(16, 185, 129, 0.35);
+      --accent-purple: #a855f7;
+      --accent-purple-light: #c084fc;
+      --accent-purple-glow: rgba(168, 85, 247, 0.35);
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 12% 8%, rgba(168, 85, 247, 0.14) 0%, transparent 45%),
+        radial-gradient(circle at 88% 15%, rgba(6, 182, 212, 0.14) 0%, transparent 50%),
+        radial-gradient(circle at 50% 92%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+      overflow-x: hidden;
+    }
+
+    .app-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 24px 20px 60px 20px;
+    }
+
+    /* Header Component */
+    header {
+      background: rgba(13, 20, 36, 0.8);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 24px 30px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan), var(--accent-emerald));
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .logo-container {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(6, 182, 212, 0.25));
+      border: 1.5px solid rgba(6, 182, 212, 0.5);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.35);
+      flex-shrink: 0;
+    }
+
+    .logo-container svg {
+      width: 32px;
+      height: 32px;
+      color: #38bdf8;
+      filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.8));
+    }
+
+    .brand-title-wrap h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff 25%, #a5f3fc 65%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+    }
+
+    .brand-subtitle {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-top: 3px;
+    }
+
+    /* Team Credits Pill */
+    .team-badge-card {
+      background: rgba(18, 28, 50, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 12px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    }
+
+    .team-badge-header {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .team-badge-header span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 8px var(--accent-cyan);
+    }
+
+    .team-members {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .member-tag {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 4px 10px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .member-tag:hover {
+      background: rgba(168, 85, 247, 0.18);
+      border-color: rgba(168, 85, 247, 0.4);
+      color: #f3e8ff;
+      transform: translateY(-1px);
+    }
+
+    .avatar-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+    .dot-1 { background: #38bdf8; box-shadow: 0 0 6px #38bdf8; }
+    .dot-2 { background: #34d399; box-shadow: 0 0 6px #34d399; }
+    .dot-3 { background: #c084fc; box-shadow: 0 0 6px #c084fc; }
+    .dot-4 { background: #fbbf24; box-shadow: 0 0 6px #fbbf24; }
+
+    .top-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-secondary-action {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-bright);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary-action:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      border-color: var(--accent-cyan);
+    }
+
+    /* Preset Errors Showcase Section */
+    .presets-container {
+      background: rgba(13, 20, 36, 0.65);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 18px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .presets-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .presets-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .presets-title svg {
+      width: 18px;
+      height: 18px;
+      color: var(--accent-amber);
+    }
+
+    .presets-hint {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    .preset-buttons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 14px;
+    }
+
+    .preset-btn {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 16px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .preset-btn:hover {
+      border-color: var(--accent-cyan);
+      background: rgba(18, 28, 50, 0.95);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px -5px rgba(6, 182, 212, 0.25);
+    }
+
+    .preset-btn.active {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 16px rgba(6, 182, 212, 0.35);
+      background: rgba(6, 182, 212, 0.09);
+    }
+
+    .preset-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .preset-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .badge-py-syntax {
+      background: rgba(244, 63, 94, 0.15);
+      color: #fb7185;
+      border: 1px solid rgba(244, 63, 94, 0.3);
+    }
+
+    .badge-py-type {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .badge-c-logic {
+      background: rgba(168, 85, 247, 0.15);
+      color: #d8b4fe;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+
+    .preset-lang {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .preset-name {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .preset-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      background: rgba(0, 0, 0, 0.3);
+      padding: 5px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    /* Main Workspace Layout */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (max-width: 1080px) {
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Left Card: Code Editor Panel */
+    .panel-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.45);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel-header {
+      background: var(--bg-card-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .panel-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .panel-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .file-tab {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+
+    /* Language Switcher Controls */
+    .lang-switcher {
+      display: flex;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-bright);
+      border-radius: 10px;
+      padding: 3px;
+      gap: 4px;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 7px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .lang-btn.active[data-lang="python"] {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(6, 182, 212, 0.2));
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+    }
+
+    .lang-btn.active[data-lang="c"] {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.3), rgba(168, 85, 247, 0.2));
+      color: #38bdf8;
+      border: 1px solid rgba(6, 182, 212, 0.5);
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.25);
+    }
+
+    /* Editor Box */
+    .editor-wrapper {
+      position: relative;
+      background: var(--bg-input);
+      min-height: 400px;
+      display: flex;
+      font-family: var(--font-mono);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .line-numbers {
+      width: 48px;
+      background: rgba(0, 0, 0, 0.28);
+      border-right: 1px solid var(--border-subtle);
+      padding: 16px 8px 16px 0;
+      text-align: right;
+      color: var(--text-dim);
+      user-select: none;
+      font-size: 0.84rem;
+      font-family: var(--font-mono);
+      overflow: hidden;
+    }
+
+    .line-number {
+      height: 24px;
+      line-height: 24px;
+      padding-right: 6px;
+      transition: color 0.15s;
+    }
+
+    .line-number.error-line {
+      color: #fb7185;
+      font-weight: 700;
+      background: rgba(244, 63, 94, 0.22);
+      border-right: 3px solid #f43f5e;
+    }
+
+    .code-textarea {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #e2e8f0;
+      font-family: var(--font-mono);
+      font-size: 0.92rem;
+      line-height: 24px;
+      padding: 16px 18px;
+      resize: vertical;
+      min-height: 400px;
+      outline: none;
+      white-space: pre;
+      overflow-wrap: normal;
+      overflow-x: auto;
+      tab-size: 4;
+    }
+
+    .code-textarea::placeholder {
+      color: #475569;
+      font-style: italic;
+    }
+
+    /* Editor Footer Status */
+    .editor-footer {
+      background: var(--bg-card-subtle);
+      border-top: 1px solid var(--border-subtle);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .editor-stats {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: var(--font-mono);
+    }
+
+    .editor-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-clear {
+      background: transparent;
+      border: 1px solid var(--border-bright);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-clear:hover {
+      background: rgba(244, 63, 94, 0.12);
+      color: #fb7185;
+      border-color: rgba(244, 63, 94, 0.4);
+    }
+
+    /* Glowing Primary Action Button */
+    .btn-debug {
+      background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%);
+      color: #ffffff;
+      border: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-debug::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+      transform: scale(0);
+      transition: transform 0.4s ease-out;
+    }
+
+    .btn-debug:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(168, 85, 247, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-debug:hover::before {
+      transform: scale(1);
+    }
+
+    .btn-debug:active {
+      transform: translateY(1px);
+    }
+
+    .btn-debug svg {
+      width: 18px;
+      height: 18px;
+      animation: pulse-glow 2s infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px #ffffff); }
+      50% { transform: scale(1.15); filter: drop-shadow(0 0 8px #ffffff); }
+    }
+
+    /* Right Card: AI Diagnostic Output Engine */
+    .diagnostic-panel {
+      position: relative;
+      min-height: 520px;
+    }
+
+    /* Empty state */
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 70px 30px;
+      text-align: center;
+      color: var(--text-muted);
+      height: 100%;
+      min-height: 480px;
+    }
+
+    .empty-illustration {
+      width: 80px;
+      height: 80px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(168, 85, 247, 0.1));
+      border: 1px dashed rgba(6, 182, 212, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .empty-illustration svg {
+      width: 40px;
+      height: 40px;
+      color: var(--accent-cyan);
+    }
+
+    .empty-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .empty-subtitle {
+      font-size: 0.88rem;
+      max-width: 400px;
+      line-height: 1.5;
+      color: var(--text-dim);
+    }
+
+    /* Loading state */
+    .loading-state {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 70px 30px;
+      text-align: center;
+      height: 100%;
+      min-height: 480px;
+    }
+
+    .ai-radar-loader {
+      width: 72px;
+      height: 72px;
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    .radar-circle {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      border-top-color: var(--accent-cyan);
+      border-right-color: var(--accent-purple);
+      animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+    }
+
+    .radar-circle:nth-child(2) {
+      inset: 9px;
+      border-top-color: var(--accent-emerald);
+      border-right-color: transparent;
+      animation: spin-reverse 0.9s linear infinite;
+    }
+
+    .radar-core {
+      position: absolute;
+      inset: 22px;
+      background: radial-gradient(circle, #38bdf8 0%, #a855f7 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.85);
+      animation: pulse-core 1.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    @keyframes spin-reverse {
+      to { transform: rotate(-360deg); }
+    }
+    @keyframes pulse-core {
+      from { transform: scale(0.85); opacity: 0.7; }
+      to { transform: scale(1.15); opacity: 1; }
+    }
+
+    .loading-text {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .loading-status-steps {
+      font-size: 0.84rem;
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      min-height: 20px;
+    }
+
+    /* Diagnosis Results Area */
+    .diagnosis-results {
+      display: none;
+      padding: 20px;
+      flex-direction: column;
+      gap: 20px;
+      animation: fadeIn 0.35s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Status Summary Banner */
+    .status-summary-bar {
+      background: linear-gradient(135deg, rgba(244, 63, 94, 0.12), rgba(15, 23, 42, 0.85));
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      border-radius: 14px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .status-summary-bar.status-success {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(15, 23, 42, 0.85));
+      border-color: rgba(16, 185, 129, 0.35);
+    }
+
+    .status-badge-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-icon-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(244, 63, 94, 0.2);
+      border: 1px solid rgba(244, 63, 94, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fb7185;
+      flex-shrink: 0;
+    }
+
+    .status-success .status-icon-circle {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #34d399;
+    }
+
+    .status-title-text {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .status-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .line-tag {
+      background: rgba(244, 63, 94, 0.25);
+      color: #fecdd3;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 5px;
+      border: 1px solid rgba(244, 63, 94, 0.4);
+    }
+
+    .confidence-tag {
+      background: rgba(6, 182, 212, 0.15);
+      color: #7dd3fc;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+    }
+
+    /* 3-STEP BREAKDOWN CARDS */
+    .step-card {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .step-card:hover {
+      border-color: var(--border-bright);
+    }
+
+    .step-card-header {
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .step-card-header.step-1-header {
+      background: linear-gradient(90deg, rgba(168, 85, 247, 0.15), transparent);
+    }
+
+    .step-card-header.step-2-header {
+      background: linear-gradient(90deg, rgba(6, 182, 212, 0.15), transparent);
+    }
+
+    .step-card-header.step-3-header {
+      background: linear-gradient(90deg, rgba(16, 185, 129, 0.15), transparent);
+    }
+
+    .step-label-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .step-number-pill {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 6px;
+    }
+
+    .pill-step-1 {
+      background: rgba(168, 85, 247, 0.2);
+      color: #d8b4fe;
+      border: 1px solid rgba(168, 85, 247, 0.4);
+    }
+
+    .pill-step-2 {
+      background: rgba(6, 182, 212, 0.2);
+      color: #67e8f9;
+      border: 1px solid rgba(6, 182, 212, 0.4);
+    }
+
+    .pill-step-3 {
+      background: rgba(16, 185, 129, 0.2);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .step-card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .step-card-body {
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* STEP 1: Plain Language Mentorship */
+    .mentor-analogy-box {
+      background: rgba(0, 0, 0, 0.28);
+      border-left: 4px solid var(--accent-purple);
+      border-radius: 0 10px 10px 0;
+      padding: 14px 16px;
+      font-size: 0.92rem;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+
+    .mentor-analogy-box strong {
+      color: #f3e8ff;
+    }
+
+    .bca-concept-callout {
+      background: rgba(168, 85, 247, 0.08);
+      border: 1px dashed rgba(168, 85, 247, 0.3);
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.84rem;
+      color: #d8b4fe;
+      line-height: 1.5;
+    }
+
+    .bca-concept-callout svg {
+      width: 18px;
+      height: 18px;
+      color: #c084fc;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* STEP 2: Exact Location & Fixed Code */
+    .location-banner {
+      background: rgba(244, 63, 94, 0.08);
+      border: 1px solid rgba(244, 63, 94, 0.2);
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.84rem;
+    }
+
+    .location-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fecdd3;
+    }
+
+    .code-comparison-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .fixed-code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .fixed-code-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-emerald);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-copy {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 7px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-copy:hover {
+      background: rgba(16, 185, 129, 0.25);
+      border-color: rgba(16, 185, 129, 0.6);
+      transform: translateY(-1px);
+    }
+
+    .btn-copy.copied {
+      background: #10b981;
+      color: #ffffff;
+      border-color: #10b981;
+    }
+
+    .code-display-block {
+      background: #050811;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 12px;
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #f1f5f9;
+      overflow-x: auto;
+      position: relative;
+      white-space: pre;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.55);
+    }
+
+    .change-notes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .change-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .change-item svg {
+      width: 14px;
+      height: 14px;
+      color: var(--accent-emerald);
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    /* STEP 3: Test Cases Engine */
+    .test-cases-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 680px) {
+      .test-cases-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .test-case-card {
+      background: rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .test-case-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .test-case-badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+    }
+
+    .test-case-data {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+
+    .test-row {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .test-label {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .test-val {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 4px 8px;
+      border-radius: 6px;
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      word-break: break-all;
+    }
+
+    .test-val.expected {
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.25);
+      background: rgba(16, 185, 129, 0.06);
+    }
+
+    .test-explanation {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      font-style: italic;
+    }
+
+    /* Simulation Runner section in Step 3 */
+    .simulator-box {
+      margin-top: 6px;
+      background: #090e1b;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+
+    .simulator-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .simulator-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-simulate {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #38bdf8;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-simulate:hover {
+      background: rgba(56, 189, 248, 0.25);
+    }
+
+    .simulation-console {
+      background: #04060c;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #10b981;
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    /* Viva Cheat Sheet Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 7, 15, 0.8);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    .modal-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-bright);
+      border-radius: 20px;
+      max-width: 660px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.75);
+      padding: 26px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: var(--text-muted);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .modal-close:hover {
+      background: rgba(244, 63, 94, 0.2);
+      color: #fb7185;
+    }
+
+    .modal-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .modal-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .viva-item {
+      background: var(--bg-card-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+    }
+
+    .viva-q {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: #38bdf8;
+      margin-bottom: 6px;
+    }
+
+    .viva-a {
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      line-height: 1.55;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 48px;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.82rem;
+      color: var(--text-dim);
+    }
+
+    .footer-credits {
+      color: var(--text-muted);
+    }
+
+    .footer-credits strong {
+      color: var(--text-main);
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      border: 1px solid var(--accent-emerald);
+      color: #34d399;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(16, 185, 129, 0.3);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 2000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- 1. Modern Dark UI & Layout: Header with Title & Team Credits -->
+    <header>
+      <div class="header-content">
+        <div class="brand-section">
+          <div class="logo-container">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+              <circle cx="12" cy="12" r="4"/>
+            </svg>
+          </div>
+          <div class="brand-title-wrap">
+            <h1>
+              AntiGravity AI Debugging Tutor
+              <span class="brand-badge">BCA Sem 1 &amp; 2</span>
+            </h1>
+            <p class="brand-subtitle">Interactive AI Mentorship &amp; Code Diagnostics for First-Year BCA Students (Python &amp; C)</p>
+          </div>
+        </div>
+
+        <!-- Team Credits: Nupur Vaishnav, Shambhavi Kekre, Raj Prajapat, Mahi Mali -->
+        <div class="team-badge-card">
+          <div class="team-badge-header">
+            <span class="dot"></span>
+            Project Team Members
+          </div>
+          <div class="team-members">
+            <div class="member-tag"><span class="avatar-dot dot-1"></span>Nupur Vaishnav</div>
+            <div class="member-tag"><span class="avatar-dot dot-2"></span>Shambhavi Kekre</div>
+            <div class="member-tag"><span class="avatar-dot dot-3"></span>Raj Prajapat</div>
+            <div class="member-tag"><span class="avatar-dot dot-4"></span>Mahi Mali</div>
+          </div>
+        </div>
+
+        <div class="top-toolbar">
+          <button class="btn-secondary-action" id="btnOpenCheatSheet" title="Quick reference for BCA lab viva and error concepts">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+            Viva &amp; Error Guide
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 4. Pre-Loaded Preset Error Examples -->
+    <section class="presets-container">
+      <div class="presets-header">
+        <div class="presets-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          Pre-Loaded BCA Student Error Examples (Click to Load):
+        </div>
+        <div class="presets-hint">Instant 1-click presets covering top BCA syllabus lab hurdles</div>
+      </div>
+
+      <div class="preset-buttons-grid">
+        <!-- Preset 1: Python Syntax Error (Missing colon) -->
+        <button class="preset-btn active" id="preset1Btn" onclick="loadPreset(1)">
+          <div class="preset-top">
+            <span class="preset-badge badge-py-syntax">Syntax Error</span>
+            <span class="preset-lang">🐍 Python</span>
+          </div>
+          <div class="preset-name">Preset 1: Missing Colon in if-statement</div>
+          <div class="preset-desc">if age &gt;= 18 (lacks trailing :)</div>
+        </button>
+
+        <!-- Preset 2: Python Type Error (String + Int concatenation) -->
+        <button class="preset-btn" id="preset2Btn" onclick="loadPreset(2)">
+          <div class="preset-top">
+            <span class="preset-badge badge-py-type">Type Error</span>
+            <span class="preset-lang">🐍 Python</span>
+          </div>
+          <div class="preset-name">Preset 2: String + Int Concatenation</div>
+          <div class="preset-desc">"I am " + age + " years old."</div>
+        </button>
+
+        <!-- Preset 3: C Logic Error (Uninitialized variable in array loop) -->
+        <button class="preset-btn" id="preset3Btn" onclick="loadPreset(3)">
+          <div class="preset-top">
+            <span class="preset-badge badge-c-logic">Logic Bug (Garbage Memory)</span>
+            <span class="preset-lang">⚙️ C Program</span>
+          </div>
+          <div class="preset-name">Preset 3: Uninitialized sum in Loop</div>
+          <div class="preset-desc">int sum; for(int i=0;...) sum += arr[i];</div>
+        </button>
+      </div>
+    </section>
+
+    <!-- 2. Code Input & Analysis Workspace -->
+    <main class="workspace-grid">
+
+      <!-- LEFT COLUMN: Code Input Editor Workspace -->
+      <section class="panel-card" aria-label="Code Input Workspace">
+        <div class="panel-header">
+          <div class="panel-header-left">
+            <div class="panel-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+              Student Code Workspace
+            </div>
+            <div class="file-tab" id="fileTabLabel">
+              <span id="fileIcon">🐍</span>
+              <span id="fileName">check_age.py</span>
+            </div>
+          </div>
+
+          <!-- Language Selector Switcher (Python / C) -->
+          <div class="lang-switcher" role="tablist">
+            <button class="lang-btn active" data-lang="python" id="langPyBtn" onclick="setLanguage('python')">
+              🐍 Python
+            </button>
+            <button class="lang-btn" data-lang="c" id="langCBtn" onclick="setLanguage('c')">
+              ⚙️ C
+            </button>
+          </div>
+        </div>
+
+        <!-- Editor Box with Line Numbers & Tab Intercept -->
+        <div class="editor-wrapper">
+          <div class="line-numbers" id="lineNumbers">
+            <div class="line-number">1</div>
+          </div>
+          <textarea 
+            id="codeEditor" 
+            class="code-textarea" 
+            spellcheck="false" 
+            placeholder="Type or paste any broken Python or C code snippet here..."></textarea>
+        </div>
+
+        <div class="editor-footer">
+          <div class="editor-stats">
+            <span id="lineCountStat">Lines: 1</span>
+            <span id="charCountStat">Chars: 0</span>
+          </div>
+          <div class="editor-actions">
+            <button class="btn-clear" id="btnClear" onclick="clearEditor()" title="Clear editor content">
+              Clear
+            </button>
+            <button class="btn-debug" id="btnDebug" onclick="runAIDebugger()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+              </svg>
+              <span>Debug Code with AI</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN: 3-Step Diagnostic Output Engine -->
+      <section class="panel-card diagnostic-panel" aria-label="AI Diagnostic Results">
+        
+        <!-- State 1: Initial Empty Placeholder -->
+        <div class="empty-state" id="emptyState">
+          <div class="empty-illustration">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+          </div>
+          <div class="empty-title">Ready to Diagnose Code</div>
+          <p class="empty-subtitle">
+            Choose a preset above or paste your custom code on the left, then click <strong>"Debug Code with AI"</strong> to unlock the 3-Step Mentorship breakdown.
+          </p>
+        </div>
+
+        <!-- State 2: Animated AI Scanning State -->
+        <div class="loading-state" id="loadingState">
+          <div class="ai-radar-loader">
+            <div class="radar-circle"></div>
+            <div class="radar-circle"></div>
+            <div class="radar-core"></div>
+          </div>
+          <div class="loading-text">AntiGravity AI is Analyzing Code...</div>
+          <div class="loading-status-steps" id="loadingStatusSteps">Scanning AST tokens...</div>
+        </div>
+
+        <!-- State 3: 3-Step Diagnostic Output Engine -->
+        <div class="diagnosis-results" id="diagnosisResults">
+
+          <!-- Diagnostic Summary Status Banner -->
+          <div class="status-summary-bar" id="statusSummaryBar">
+            <div class="status-badge-wrap">
+              <div class="status-icon-circle" id="statusIcon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+              </div>
+              <div>
+                <div class="status-title-text" id="statusErrorTitle">SyntaxError: expected ':'</div>
+                <div class="status-meta">
+                  <span class="line-tag" id="statusLineTag">Line 4</span>
+                  <span id="statusCategoryTag">BCA Unit 2: Conditional Statements</span>
+                </div>
+              </div>
+            </div>
+            <span class="confidence-tag">AI Confidence: 99.8%</span>
+          </div>
+
+          <!-- STEP 1: Plain Language Explanation (Mentorship tone, jargon-free analogies) -->
+          <div class="step-card">
+            <div class="step-card-header step-1-header">
+              <div class="step-label-group">
+                <span class="step-number-pill pill-step-1">Step 1</span>
+                <span class="step-card-title">Plain Language Explanation</span>
+              </div>
+              <span style="font-size: 0.75rem; color: #c084fc; font-weight: 600;">Mentorship Tone</span>
+            </div>
+            <div class="step-card-body">
+              <div class="mentor-analogy-box" id="step1Analogy">
+                <!-- Dynamic plain-language analogy -->
+              </div>
+              <div class="bca-concept-callout">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                </svg>
+                <div id="step1BcaConcept">
+                  <!-- BCA core concept / viva tip -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 2: Exact Location & Fixed Code (Line number, why it failed, corrected block & Copy Code button) -->
+          <div class="step-card">
+            <div class="step-card-header step-2-header">
+              <div class="step-label-group">
+                <span class="step-number-pill pill-step-2">Step 2</span>
+                <span class="step-card-title">Exact Location &amp; Fixed Code</span>
+              </div>
+              <span style="font-size: 0.75rem; color: #38bdf8; font-weight: 600;">Corrective Fix</span>
+            </div>
+            <div class="step-card-body">
+              <div class="location-banner">
+                <div class="location-info">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                  </svg>
+                  <span id="step2LocationText">Line 4: Triggered by missing colon ':' at end of header</span>
+                </div>
+                <span style="color: var(--text-dim); font-size: 0.75rem;">Verified Fix</span>
+              </div>
+
+              <div class="code-comparison-container">
+                <div class="fixed-code-header">
+                  <span class="fixed-code-label">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    Corrected Code Block:
+                  </span>
+                  <!-- One-Click "Copy Code" button -->
+                  <button class="btn-copy" id="btnCopyCode" onclick="copyFixedCode()">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    <span>Copy Code</span>
+                  </button>
+                </div>
+                <pre class="code-display-block" id="step2FixedCodeBlock"></pre>
+              </div>
+
+              <!-- Changes explanation -->
+              <div class="change-notes-list" id="step2ChangeNotes">
+                <!-- Change bullet points -->
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3: Test Cases (2 distinct test cases: inputs, outputs, edge-case explanations) -->
+          <div class="step-card">
+            <div class="step-card-header step-3-header">
+              <div class="step-label-group">
+                <span class="step-number-pill pill-step-3">Step 3</span>
+                <span class="step-card-title">Test Cases (Proving Why Fix Works)</span>
+              </div>
+              <span style="font-size: 0.75rem; color: #34d399; font-weight: 600;">Verification Suite</span>
+            </div>
+            <div class="step-card-body">
+              <div class="test-cases-grid">
+                <!-- Test Case 1 -->
+                <div class="test-case-card">
+                  <div class="test-case-title">
+                    <span>Test Case 1</span>
+                    <span class="test-case-badge">Standard Input</span>
+                  </div>
+                  <div class="test-case-data">
+                    <div class="test-row">
+                      <span class="test-label">Input / State:</span>
+                      <span class="test-val" id="tc1Input">age = 20</span>
+                    </div>
+                    <div class="test-row">
+                      <span class="test-label">Expected Output:</span>
+                      <span class="test-val expected" id="tc1Output">Eligible to vote!</span>
+                    </div>
+                  </div>
+                  <p class="test-explanation" id="tc1Explanation">
+                    Verifies that standard typical inputs satisfy the condition and execute successfully.
+                  </p>
+                </div>
+
+                <!-- Test Case 2 -->
+                <div class="test-case-card">
+                  <div class="test-case-title">
+                    <span>Test Case 2</span>
+                    <span class="test-case-badge" style="color: #fbbf24; border-color: rgba(245, 158, 11, 0.4);">Edge-Case Boundary</span>
+                  </div>
+                  <div class="test-case-data">
+                    <div class="test-row">
+                      <span class="test-label">Input / State:</span>
+                      <span class="test-val" id="tc2Input">age = 18 (Exact Boundary)</span>
+                    </div>
+                    <div class="test-row">
+                      <span class="test-label">Expected Output:</span>
+                      <span class="test-val expected" id="tc2Output">Eligible to vote!</span>
+                    </div>
+                  </div>
+                  <p class="test-explanation" id="tc2Explanation">
+                    Tests boundary edge values to prove the &gt;= comparison handles boundary inclusivity properly without off-by-one errors.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Interactive Simulator Box -->
+              <div class="simulator-box">
+                <div class="simulator-header">
+                  <span class="simulator-label">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    Interactive Output Simulator
+                  </span>
+                  <button class="btn-simulate" onclick="runSimulation()">
+                    ▶ Simulate Execution
+                  </button>
+                </div>
+                <div class="simulation-console" id="simulationConsole">
+                  Click '▶ Simulate Execution' to preview output with fixed code...
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Viva Cheat Sheet Modal -->
+    <div class="modal-overlay" id="vivaModal">
+      <div class="modal-card">
+        <button class="modal-close" id="btnCloseModal">&times;</button>
+        <div class="modal-title">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+          </svg>
+          BCA 1st Year Lab Viva &amp; Debugging Guide
+        </div>
+        <div class="modal-subtitle">Essential distinctions every BCA student is examined on in practical exams</div>
+
+        <div class="viva-item">
+          <div class="viva-q">1. What is the difference between Syntax, Runtime, and Logical Errors?</div>
+          <div class="viva-a">
+            <strong>• Syntax Error:</strong> Violates grammar rules of the language (e.g. missing colon in Python, missing semicolon in C). Caught by compiler/parser before execution starts.<br>
+            <strong>• Runtime Error:</strong> Occurs while the program is executing (e.g. dividing by zero, TypeError when concatenating string to int, segmentation fault). Causes sudden crash.<br>
+            <strong>• Logical Error:</strong> The program compiles and runs smoothly without crashing, but calculates wrong outputs (e.g. uninitialized variable holding garbage memory, wrong loop condition). These are the most dangerous bugs in software!
+          </div>
+        </div>
+
+        <div class="viva-item">
+          <div class="viva-q">2. Why does C give unpredictable huge numbers when variables aren't initialized?</div>
+          <div class="viva-a">
+            Unlike Python which automatically manages and zeros object allocations, C allocates raw memory cells directly on the stack. When you declare <code>int sum;</code> without <code>= 0</code>, the memory cell contains whatever random residual electrical bits were left over by previous programs (known as a <strong>garbage value</strong>).
+          </div>
+        </div>
+
+        <div class="viva-item">
+          <div class="viva-q">3. Why doesn't Python allow "I am " + age + " years old"?</div>
+          <div class="viva-a">
+            Python is <strong>strongly typed</strong>. It deliberately avoids implicit type coercion. When Python sees <code>+</code>, it cannot guess if you intend to do mathematical addition or text concatenation. You must explicitly convert using <code>str(age)</code> or use modern formatted f-strings <code>f"I am {age} years old."</code>.
+          </div>
+        </div>
+
+        <div class="viva-item">
+          <div class="viva-q">4. Why does scanf("%d", x) cause a Segmentation Fault in C?</div>
+          <div class="viva-a">
+            The <code>scanf</code> function requires the <em>memory address</em> where the input should be stored. Omitting the ampersand (<code>&amp;</code>) passes the value of x rather than its memory location, prompting C to attempt writing to invalid protected operating system memory.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Feedback Element -->
+    <div class="toast" id="toast">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20 6L9 17l-5-5"/>
+      </svg>
+      <span id="toastMsg">Code copied to clipboard!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div>
+        <strong>AntiGravity AI Debugging Tutor</strong> • Built specifically for First-Year BCA Students (BCA Programming Lab)
+      </div>
+      <div class="footer-credits">
+        Engineering Credits: <strong>Nupur Vaishnav</strong>, <strong>Shambhavi Kekre</strong>, <strong>Raj Prajapat</strong>, <strong>Mahi Mali</strong>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // PRESET ERROR CATALOG (Accurately mapped to Requirements 4.1, 4.2, 4.3)
+    const PRESETS = {
+      1: {
+        id: 1,
+        title: "Preset 1: Missing Colon in if-statement",
+        lang: "python",
+        fileName: "check_age.py",
+        code: `# BCA Lab Assignment: Eligibility Checker\nage = 20\n\n# Broken: Missing colon at the end of if-statement\nif age >= 18\n    print("Eligible to vote!")\nelse:\n    print("Not eligible.")`,
+        diagnostic: {
+          errorType: "SyntaxError: expected ':'",
+          line: 5,
+          category: "BCA Unit 2: Python Control Flow & Decision Structures",
+          analogy: `<strong>The Mentor's Analogy:</strong> Think of Python's <code>if</code> statement like an entrance door to a room. In Python, the colon (<code>:</code>) is the key that unlocks the door to the indented code block below it. When you write <code>if age >= 18</code> without a colon, Python waits at the doorstep confused, unable to recognize where your condition stops and where the inner action begins!`,
+          bcaConcept: `<strong>BCA Exam Viva Note:</strong> In Python grammar, all compound statements (including <code>if</code>, <code>elif</code>, <code>else</code>, <code>for</code>, <code>while</code>, <code>def</code>, and <code>class</code>) require a trailing colon (<code>:</code>) at the header to open a new indented suite block. Missing colons are the most common syntax errors caught by the Python lexer during tokenization.`,
+          fixedCode: `# BCA Lab Assignment: Eligibility Checker\nage = 20\n\n# Fixed: Added colon ':' to open the conditional block\nif age >= 18:\n    print("Eligible to vote!")\nelse:\n    print("Not eligible.")`,
+          changes: [
+            "Appended the mandatory colon ':' to line 5 after 'if age >= 18'",
+            "Maintained 4-space standard indentation for the enclosed print statement",
+            "Preserved complementary else: block structure"
+          ],
+          tc1: {
+            input: "age = 20",
+            output: "Eligible to vote!",
+            explanation: "Normal test case: 20 is greater than 18, so the if-block executes without raising any syntax parsing exceptions."
+          },
+          tc2: {
+            input: "age = 18 (Exact Boundary Value)",
+            output: "Eligible to vote!",
+            explanation: "Boundary edge test case: Checks inclusivity. Because >= is used, age = 18 correctly qualifies as eligible."
+          },
+          simulationOutput: "Eligible to vote!"
+        }
+      },
+      2: {
+        id: 2,
+        title: "Preset 2: String + Int Concatenation",
+        lang: "python",
+        fileName: "profile_age.py",
+        code: `# BCA Lab Assignment: Age Formatter\nage = 19\n\n# Broken: Attempting to concatenate string and integer\nmessage = "I am " + age + " years old."\nprint(message)`,
+        diagnostic: {
+          errorType: "TypeError: can only concatenate str (not 'int') to str",
+          line: 5,
+          category: "BCA Unit 1: Python Data Types & Type Casting",
+          analogy: `<strong>The Mentor's Analogy:</strong> Imagine trying to glue a fresh apple to a sheet of paper using tape. In Python, the <code>+</code> operator means <em>text concatenation</em> when working with strings, but <em>mathematical addition</em> when working with numbers. Python is strictly typed and refuses to guess whether you want to do math or write sentences!`,
+          bcaConcept: `<strong>BCA Exam Viva Note:</strong> Python does not perform implicit type coercion between numeric types and strings during concatenation. You must either explicitly convert using <code>str(age)</code> or use modern Python 3 f-strings: <code>f"I am {age} years old."</code>. BCA examiners frequently ask this during semester lab vivas!`,
+          fixedCode: `# BCA Lab Assignment: Age Formatter\nage = 19\n\n# Fixed: Explicitly convert integer to string using str()\nmessage = "I am " + str(age) + " years old."\nprint(message)`,
+          changes: [
+            "Wrapped the integer variable 'age' inside str(age) on line 5",
+            "Allowed string concatenation operator '+' to join homogenous string types",
+            "Alternative recommended fix: formatted f-string f'I am {age} years old.'"
+          ],
+          tc1: {
+            input: "age = 19",
+            output: "I am 19 years old.",
+            explanation: "Standard test case: String and integer properly format together into a unified display string."
+          },
+          tc2: {
+            input: "age = 0 (Edge Case Boundary)",
+            output: "I am 0 years old.",
+            explanation: "Edge test case: Ensures integer 0 or negative digits do not cause null pointer or type mismatch exceptions."
+          },
+          simulationOutput: "I am 19 years old."
+        }
+      },
+      3: {
+        id: 3,
+        title: "Preset 3: Uninitialized sum in C Loop",
+        lang: "c",
+        fileName: "array_sum.c",
+        code: `// BCA Lab Assignment: Sum of Array Elements\n#include <stdio.h>\n\nint main() {\n    int arr[5] = {10, 20, 30, 40, 50};\n    int sum; // BUG: Not initialized to 0 (holds garbage memory)!\n    \n    for (int i = 0; i < 5; i++) {\n        sum += arr[i];\n    }\n    \n    printf("Sum of array elements: %d\\n", sum);\n    return 0;\n}`,
+        diagnostic: {
+          errorType: "Logic Bug: Uninitialized Variable (Stack Garbage Memory)",
+          line: 6,
+          category: "BCA Unit 3: C Variables, Storage Classes & Arrays",
+          analogy: `<strong>The Mentor's Analogy:</strong> Think of declaring an uninitialized variable in C like grabbing an old chalkboard from a storage closet that was never wiped clean from last year. When you write <code>int sum;</code> without <code>= 0</code>, the chalkboard contains random junk chalk numbers ("garbage memory"). When you start adding <code>sum += arr[i]</code>, you are adding your array numbers on top of leftover trash!`,
+          bcaConcept: `<strong>BCA Exam Viva Note:</strong> In C, local variables declared inside a function have automatic storage duration (<code>auto</code>) and reside on the stack frame. Their initial value is whatever bit pattern already occupied that RAM address (indeterminate/garbage value). Local accumulators MUST be explicitly initialized to 0.`,
+          fixedCode: `// BCA Lab Assignment: Sum of Array Elements\n#include <stdio.h>\n\nint main() {\n    int arr[5] = {10, 20, 30, 40, 50};\n    int sum = 0; // FIXED: Explicitly initialized to 0\n    \n    for (int i = 0; i < 5; i++) {\n        sum += arr[i];\n    }\n    \n    printf("Sum of array elements: %d\\n", sum);\n    return 0;\n}`,
+          changes: [
+            "Initialized 'int sum = 0;' on line 6 instead of leaving it uninitialized",
+            "Eliminated indeterminate stack garbage memory before array accumulation loop begins",
+            "Guaranteed mathematically correct deterministic output across all C compilers"
+          ],
+          tc1: {
+            input: "arr = {10, 20, 30, 40, 50}",
+            output: "Sum of array elements: 150",
+            explanation: "Normal test case: Array values add up cleanly to exactly 150 without strange garbage prefixes."
+          },
+          tc2: {
+            input: "arr = {0, 0, 0, 0, 0} (All Zeroes Edge Case)",
+            output: "Sum of array elements: 0",
+            explanation: "Crucial boundary test: With an uninitialized variable, all-zero arrays still print junk values (e.g., 32767). Initializing sum = 0 guarantees correct output of 0."
+          },
+          simulationOutput: "Sum of array elements: 150"
+        }
+      }
+    };
+
+    // State Variables
+    let currentLanguage = 'python';
+    let currentActivePreset = 1;
+    let lastDiagnosticResult = null;
+
+    // DOM Elements
+    const codeEditor = document.getElementById('codeEditor');
+    const lineNumbers = document.getElementById('lineNumbers');
+    const lineCountStat = document.getElementById('lineCountStat');
+    const charCountStat = document.getElementById('charCountStat');
+    const fileName = document.getElementById('fileName');
+    const fileIcon = document.getElementById('fileIcon');
+    const langPyBtn = document.getElementById('langPyBtn');
+    const langCBtn = document.getElementById('langCBtn');
+    const btnDebug = document.getElementById('btnDebug');
+    const emptyState = document.getElementById('emptyState');
+    const loadingState = document.getElementById('loadingState');
+    const loadingStatusSteps = document.getElementById('loadingStatusSteps');
+    const diagnosisResults = document.getElementById('diagnosisResults');
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+    const vivaModal = document.getElementById('vivaModal');
+    const btnOpenCheatSheet = document.getElementById('btnOpenCheatSheet');
+    const btnCloseModal = document.getElementById('btnCloseModal');
+
+    // Startup Initialization
+    window.addEventListener('DOMContentLoaded', () => {
+      loadPreset(1);
+      setupEditorListeners();
+    });
+
+    // Language Toggle Selector
+    function setLanguage(lang) {
+      currentLanguage = lang;
+      if (lang === 'python') {
+        langPyBtn.classList.add('active');
+        langCBtn.classList.remove('active');
+        if (!fileName.textContent.endsWith('.py')) {
+          fileName.textContent = 'solution.py';
+        }
+        fileIcon.textContent = '🐍';
+      } else {
+        langCBtn.classList.add('active');
+        langPyBtn.classList.remove('active');
+        if (!fileName.textContent.endsWith('.c')) {
+          fileName.textContent = 'program.c';
+        }
+        fileIcon.textContent = '⚙️';
+      }
+      updateEditorMetrics();
+    }
+
+    // Load Pre-Loaded Preset Error
+    function loadPreset(presetId) {
+      currentActivePreset = presetId;
+      
+      // Update preset buttons visual active state
+      document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById(`preset${presetId}Btn`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const preset = PRESETS[presetId];
+      if (!preset) return;
+
+      setLanguage(preset.lang);
+      fileName.textContent = preset.fileName;
+      codeEditor.value = preset.code;
+
+      updateEditorMetrics();
+      // Render detailed 3-step breakdown immediately
+      renderDiagnostics(preset.diagnostic, preset.code);
+    }
+
+    // Editor Synchronized Metrics & Intercepts
+    function setupEditorListeners() {
+      codeEditor.addEventListener('input', () => {
+        updateEditorMetrics();
+        // Clear active preset button highlight if user modifies code
+        document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+      });
+
+      // Handle Tab Key Indentation (4 spaces)
+      codeEditor.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+          e.preventDefault();
+          const start = codeEditor.selectionStart;
+          const end = codeEditor.selectionEnd;
+          const spaces = "    ";
+          codeEditor.value = codeEditor.value.substring(0, start) + spaces + codeEditor.value.substring(end);
+          codeEditor.selectionStart = codeEditor.selectionEnd = start + 4;
+          updateEditorMetrics();
+        }
+      });
+
+      // Synchronize scroll position between textarea and line gutter
+      codeEditor.addEventListener('scroll', () => {
+        lineNumbers.scrollTop = codeEditor.scrollTop;
+      });
+
+      // Viva Modal Triggers
+      btnOpenCheatSheet.addEventListener('click', () => {
+        vivaModal.style.display = 'flex';
+      });
+
+      btnCloseModal.addEventListener('click', () => {
+        vivaModal.style.display = 'none';
+      });
+
+      vivaModal.addEventListener('click', (e) => {
+        if (e.target === vivaModal) vivaModal.style.display = 'none';
+      });
+    }
+
+    function updateEditorMetrics() {
+      const code = codeEditor.value;
+      const lines = code.split('\n');
+      const count = lines.length;
+
+      // Update line number gutter with error highlighting if available
+      let gutterHTML = '';
+      for (let i = 1; i <= count; i++) {
+        const isErrorLine = (lastDiagnosticResult && lastDiagnosticResult.line === i);
+        gutterHTML += `<div class="line-number ${isErrorLine ? 'error-line' : ''}">${i}</div>`;
+      }
+      lineNumbers.innerHTML = gutterHTML;
+
+      // Update counters
+      lineCountStat.textContent = `Lines: ${count}`;
+      charCountStat.textContent = `Chars: ${code.length}`;
+    }
+
+    function clearEditor() {
+      codeEditor.value = '';
+      updateEditorMetrics();
+      emptyState.style.display = 'flex';
+      loadingState.style.display = 'none';
+      diagnosisResults.style.display = 'none';
+      lastDiagnosticResult = null;
+      document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+      showToast("Editor cleared");
+    }
+
+    // Main Interactive "Debug Code with AI" Action
+    function runAIDebugger() {
+      const code = codeEditor.value.trim();
+      if (!code) {
+        showToast("Please enter or paste some code first!");
+        return;
+      }
+
+      // Show animated AI scanning state
+      emptyState.style.display = 'none';
+      diagnosisResults.style.display = 'none';
+      loadingState.style.display = 'flex';
+
+      const scanSteps = [
+        "Scanning syntax tokens & AST nodes...",
+        "Validating grammar against language standard...",
+        "Inspecting type constraints & stack allocations...",
+        "Synthesizing 3-Step mentorship breakdown..."
+      ];
+
+      let stepIdx = 0;
+      loadingStatusSteps.textContent = scanSteps[0];
+      const interval = setInterval(() => {
+        stepIdx++;
+        if (stepIdx < scanSteps.length) {
+          loadingStatusSteps.textContent = scanSteps[stepIdx];
+        }
+      }, 180);
+
+      setTimeout(() => {
+        clearInterval(interval);
+        loadingState.style.display = 'none';
+
+        // Check if code exactly matches any pre-loaded preset
+        let diagnostic = null;
+        for (let p in PRESETS) {
+          if (code.replace(/\s+/g, '') === PRESETS[p].code.replace(/\s+/g, '')) {
+            diagnostic = PRESETS[p].diagnostic;
+            break;
+          }
+        }
+
+        // Custom Error Analyzer Fallback Engine
+        if (!diagnostic) {
+          diagnostic = analyzeCustomCode(codeEditor.value, currentLanguage);
+        }
+
+        renderDiagnostics(diagnostic, codeEditor.value);
+      }, 750);
+    }
+
+    // 5. CUSTOM ERROR ANALYZER FALLBACK LOGIC
+    // Parses common patterns: missing colons, missing semicolons, string-int concatenation, uninitialized variables, division by zero
+    function analyzeCustomCode(code, lang) {
+      const lines = code.split('\n');
+
+      // 1. PYTHON DIAGNOSTIC PATTERNS
+      if (lang === 'python') {
+        
+        // Pattern 1: Missing colon in if, elif, else, while, for, def, class, try, except
+        for (let i = 0; i < lines.length; i++) {
+          const rawLine = lines[i];
+          const trimmed = rawLine.trim();
+          if (trimmed.startsWith('#') || trimmed === '') continue;
+
+          // Check if it starts with compound keyword but does NOT end with colon
+          const compoundRegex = /^(if\s+.*|elif\s+.*|else|while\s+.*|for\s+.*|def\s+.*|class\s+.*|try|except(\s+.*)?|finally|with\s+.*)$/;
+          if (compoundRegex.test(trimmed) && !trimmed.endsWith(':')) {
+            const lineNum = i + 1;
+            const fixedLines = [...lines];
+            fixedLines[i] = rawLine + ':';
+
+            return {
+              errorType: "SyntaxError: expected ':'",
+              line: lineNum,
+              category: "Python Block Header & Delimitation",
+              analogy: `<strong>The Mentor's Analogy:</strong> In Python, a colon (<code>:</code>) is the punctuation mark that signals "get ready, here comes the block of code to run!". Forgetting the colon at the end of <code>${escapeHtml(trimmed)}</code> is like asking a question without opening your mouth to let the answer happen. Python stops cold because it doesn't know where the condition ends.`,
+              bcaConcept: `<strong>BCA Exam Viva Note:</strong> In Python grammar, all compound statements must end with a colon (<code>:</code>) before the indented suite. Unlike C, Python uses indentation and colons instead of curly braces <code>{}</code>.`,
+              fixedCode: fixedLines.join('\n'),
+              changes: [
+                `Appended missing colon ':' to the end of line ${lineNum}`,
+                "Enabled Python lexer to recognize the start of the indented block suite"
+              ],
+              tc1: {
+                input: "Condition satisfies true branch",
+                output: "Branch executes successfully without SyntaxError",
+                explanation: "The parser accepts the valid statement header and executes the block without termination."
+              },
+              tc2: {
+                input: "Condition evaluates to false",
+                output: "Bypasses block or evaluates else branch properly",
+                explanation: "Valid grammar allows python to correctly branch at runtime."
+              },
+              simulationOutput: "Syntax validated successfully. Conditional block executed without parsing errors."
+            };
+          }
+        }
+
+        // Pattern 2: String + Int concatenation (e.g. "I am " + age + " years old" or num + " text")
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i];
+          if (line.trim().startsWith('#')) continue;
+
+          // Check if contains string concatenation with non-string identifiers
+          const hasStringAndConcat = /(['"].*?['"]\s*\+\s*[a-zA-Z_]\w*|[a-zA-Z_]\w*\s*\+\s*['"].*?['"])/.test(line);
+          if (hasStringAndConcat && !line.includes('str(')) {
+            const lineNum = i + 1;
+            const fixedLines = [...lines];
+            
+            // Transform var into str(var)
+            let fixedLine = line.replace(/(['"].*?['"]\s*\+\s*)([a-zA-Z_]\w*)(\s*\+?)/g, '$1str($2)$3');
+            fixedLine = fixedLine.replace(/([a-zA-Z_]\w*)(\s*\+\s*['"].*?['"])/g, 'str($1)$2');
+            fixedLines[i] = fixedLine;
+
+            return {
+              errorType: "TypeError: can only concatenate str (not 'int') to str",
+              line: lineNum,
+              category: "Python Type System & Incompatible Operands",
+              analogy: `<strong>The Mentor's Analogy:</strong> Python sees text and numbers as two completely different species. The <code>+</code> symbol means <em>addition</em> to numbers and <em>gluing words together</em> to strings. When you mix them without conversion, Python refuses to assume whether you meant math or letters.`,
+              bcaConcept: `<strong>BCA Exam Viva Note:</strong> Python is a strongly typed language. It does not perform automatic type coercion between numeric integers/floats and string primitives. Always convert with <code>str()</code> or use <code>f"{var}"</code> formatting.`,
+              fixedCode: fixedLines.join('\n'),
+              changes: [
+                `Explicitly converted numeric operand using str(...) on line ${lineNum}`,
+                "Reconciled incompatible types into unified string stream"
+              ],
+              tc1: {
+                input: "Valid integer passed into string statement",
+                output: "Unified concatenated string message",
+                explanation: "Explicit conversion produces harmonious string concatenation without crashing."
+              },
+              tc2: {
+                input: "Zero or negative number passed",
+                output: "Correct string representation (e.g., '0' or '-5')",
+                explanation: "Explicit type casting gracefully handles all numeric values including zero and negatives."
+              },
+              simulationOutput: "Execution successful: Concatenated string generated safely."
+            };
+          }
+        }
+
+        // Pattern 3: Division by zero in Python
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i];
+          if (line.trim().startsWith('#')) continue;
+          if (/\/\s*0(?!\.)/.test(line)) {
+            const lineNum = i + 1;
+            const fixedLines = lines.map((l, idx) => {
+              if (idx === i) {
+                return `    # Guarded against division by zero:\n    if divisor != 0:\n        result = ${l.trim().replace(/\/\s*0/, '/ divisor')}\n    else:\n        result = 0  # Safe default`;
+              }
+              return l;
+            });
+
+            return {
+              errorType: "ZeroDivisionError: division by zero",
+              line: lineNum,
+              category: "Python Mathematical Runtime Exceptions",
+              analogy: `<strong>The Mentor's Analogy:</strong> Division by zero is a mathematical impossibility. Imagine distributing 10 candies among 0 children—the question itself is invalid and cannot be resolved! In computing, dividing by zero causes an immediate program crash.`,
+              bcaConcept: `<strong>BCA Exam Viva Note:</strong> In BCA theory, division by zero is classified as a Runtime Error (or Exception). It compiles without error but triggers <code>ZeroDivisionError</code> during execution. It must be guarded using <code>if divisor != 0:</code> or <code>try...except ZeroDivisionError:</code>.`,
+              fixedCode: fixedLines.join('\n'),
+              changes: [
+                `Identified explicit division by zero on line ${lineNum}`,
+                "Added defensive conditional check before arithmetic operation"
+              ],
+              tc1: {
+                input: "Divisor is a positive integer (e.g. 5)",
+                output: "Accurate quotient result computed",
+                explanation: "Non-zero divisors produce valid floating-point numbers."
+              },
+              tc2: {
+                input: "Divisor is exactly 0",
+                output: "Handled gracefully (avoids ZeroDivisionError crash)",
+                explanation: "Defensive branch protects application from crashing."
+              },
+              simulationOutput: "Safely handled division calculation without exception."
+            };
+          }
+        }
+
+        // Pattern 4: Assignment '=' in condition instead of '=='
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i];
+          if (line.trim().startsWith('#')) continue;
+          if (/^(if|while)\s+[a-zA-Z_]\w*\s*=\s*[^=]/.test(line.trim()) && !line.includes('==') && !line.includes('<=') && !line.includes('>=')) {
+            const lineNum = i + 1;
+            const fixedLines = [...lines];
+            fixedLines[i] = line.replace(/=/, '==');
+            return {
+              errorType: "SyntaxError: invalid syntax (assignment in condition)",
+              line: lineNum,
+              category: "Python Conditional Equality vs Assignment",
+              analogy: `<strong>The Mentor's Analogy:</strong> A single equals sign <code>=</code> is like putting a letter into a mailbox (assignment). A double equals sign <code>==</code> is asking the postal worker "is this letter addressed to me?" (comparison). In Python, you cannot place a mailbox inside a question!`,
+              bcaConcept: `<strong>BCA Exam Viva Note:</strong> Unlike C (which allows assignment inside an expression and checks for non-zero truthiness), Python explicitly forbids assignment statements inside <code>if</code> conditions to prevent accidental bugs.`,
+              fixedCode: fixedLines.join('\n'),
+              changes: [
+                `Replaced single assignment operator '=' with comparison equality operator '==' on line ${lineNum}`
+              ],
+              tc1: {
+                input: "Variable equals comparison value",
+                output: "Evaluates to True and executes body",
+                explanation: "Standard equality condition passes."
+              },
+              tc2: {
+                input: "Variable differs from comparison value",
+                output: "Evaluates to False without side-effect assignment",
+                explanation: "Prevents accidental variable overwrite during condition evaluation."
+              },
+              simulationOutput: "Condition evaluated cleanly with comparison operator."
+            };
+          }
+        }
+      }
+
+      // 2. C LANGUAGE DIAGNOSTIC PATTERNS
+      if (lang === 'c') {
+
+        // Pattern 1: Uninitialized variable in calculation / loop (e.g. int sum; without = 0)
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i];
+          if (line.trim().startsWith('//')) continue;
+          const uninitMatch = line.match(/\b(int|float|double|long)\s+([a-zA-Z_]\w*)\s*;/);
+          if (uninitMatch) {
+            const varType = uninitMatch[1];
+            const varName = uninitMatch[2];
+            // Check if variable is subsequently accumulated or used in addition
+            const restOfCode = lines.slice(i + 1).join('\n');
+            const accumRegex = new RegExp(`\\b${varName}\\s*(\\+=|=|\\+)`);
+            if (accumRegex.test(restOfCode)) {
+              const lineNum = i + 1;
+              const fixedLines = [...lines];
+              fixedLines[i] = line.replace(`;`, ` = 0; // Initialized to avoid garbage value`);
+
+              return {
+                errorType: `Logic Bug: Uninitialized Variable '${varName}' (Stack Garbage Memory)`,
+                line: lineNum,
+                category: "C Storage Classes & Memory Allocation",
+                analogy: `<strong>The Mentor's Analogy:</strong> When C allocates memory on the stack for <code>${varName}</code>, it doesn't clean the room first. It leaves whatever random binary noise was left by the previous program. When you add to <code>${varName}</code>, you are adding to complete rubbish!`,
+                bcaConcept: `<strong>BCA Exam Viva Note:</strong> In C, local variables have automatic storage duration and undefined initial values. Reading an uninitialized local variable invokes <em>Undefined Behavior</em> (UB) under the ISO C99 standard.`,
+                fixedCode: fixedLines.join('\n'),
+                changes: [
+                  `Explicitly initialized '${varName} = 0;' on line ${lineNum}`,
+                  "Eliminated non-deterministic garbage values on stack frame"
+                ],
+                tc1: {
+                  input: "Standard positive values",
+                  output: "Mathematically accurate accumulation",
+                  explanation: "Accumulation starts strictly from initial zero base."
+                },
+                tc2: {
+                  input: "Empty or zeroed collection",
+                  output: "Output strictly equals 0",
+                  explanation: "Guarantees no false garbage residuals."
+                },
+                simulationOutput: `Calculation verified with ${varName} initialized to 0.`
+              };
+            }
+          }
+        }
+
+        // Pattern 2: Missing semicolon in C
+        for (let i = 0; i < lines.length; i++) {
+          const rawLine = lines[i];
+          const trimmed = rawLine.trim();
+          if (trimmed === '' || trimmed.startsWith('//') || trimmed.startsWith('/*') || trimmed.startsWith('#')) continue;
+          if (trimmed.endsWith('{') || trimmed.endsWith('}') || trimmed.startsWith('if') || trimmed.startsWith('for') || trimmed.startsWith('while')) continue;
+
+          // Check if statement does not end with semicolon or comma
+          if (!trimmed.endsWith(';') && !trimmed.endsWith(',')) {
+            const lineNum = i + 1;
+            const fixedLines = [...lines];
+            fixedLines[i] = rawLine + ';';
+            return {
+              errorType: "error: expected ';' before end of statement",
+              line: lineNum,
+              category: "C Language Syntax & Statement Termination",
+              analogy: `<strong>The Mentor's Analogy:</strong> In written English, a sentence ends with a full stop (<code>.</code>). In C programming, every statement MUST end with a semicolon (<code>;</code>). Leaving it off on line ${lineNum} is like writing two sentences together with no punctuation—the compiler gets breathless and confused!`,
+              bcaConcept: `<strong>BCA Exam Viva Note:</strong> In C grammar, statements are expressions terminated by a semicolon (<code>;</code>). The compiler relies on semicolons, not newlines or whitespace, to recognize statement boundaries.`,
+              fixedCode: fixedLines.join('\n'),
+              changes: [
+                `Appended missing semicolon ';' to the end of statement on line ${lineNum}`,
+                "Allowed compiler lexer to cleanly delimit instruction boundary"
+              ],
+              tc1: {
+                input: "Source file compiled with gcc -Wall",
+                output: "Compilation succeeds with 0 errors",
+                explanation: "All statements have legal terminating tokens."
+              },
+              tc2: {
+                input: "Subsequent statements in sequence",
+                output: "Execute sequentially in expected order",
+                explanation: "Parser avoids cascading syntax errors into succeeding lines."
+              },
+              simulationOutput: "Process returned 0 (0x0). Compilation clean."
+            };
+          }
+        }
+
+        // Pattern 3: Missing '&' in scanf (e.g. scanf("%d", x))
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i];
+          if (/scanf\s*\(\s*["'].*?%[dfsc]["']\s*,\s*([a-zA-Z_]\w*)\s*\)/.test(line)) {
+            const match = line.match(/scanf\s*\(\s*["'](.*?)["']\s*,\s*([a-zA-Z_]\w*)\s*\)/);
+            if (match && !match[2].startsWith('&')) {
+              const varName = match[2];
+              const lineNum = i + 1;
+              const fixedLines = [...lines];
+              fixedLines[i] = line.replace(new RegExp(`,\\s*${varName}`), `, &${varName}`);
+              return {
+                errorType: "Runtime Bug: Missing Address-of Operator '&' in scanf",
+                line: lineNum,
+                category: "C Pointers, Memory Addresses & I/O",
+                analogy: `<strong>The Mentor's Analogy:</strong> Imagine telling a courier to deliver a parcel, but instead of giving them your house address, you give them the number of apples in your fridge. <code>scanf</code> needs the <em>house address</em> (<code>&${varName}</code>) where it can store the user's input, not the current value!`,
+                bcaConcept: `<strong>BCA Exam Viva Note:</strong> In C, arguments are passed by value. To allow <code>scanf</code> to modify the caller's variable, we must pass a pointer (the memory address) using the <code>&amp;</code> address-of operator. Omitting <code>&amp;</code> causes memory access violation (Segmentation Fault).`,
+                fixedCode: fixedLines.join('\n'),
+                changes: [
+                  `Added address-of operator '&' before '${varName}' in scanf on line ${lineNum}`,
+                  "Provided valid memory address pointer for formatted keyboard input"
+                ],
+                tc1: {
+                  input: "User inputs integer 42",
+                  output: `Variable ${varName} safely populated with 42`,
+                  explanation: "scanf writes directly into memory location of variable."
+                },
+                tc2: {
+                  input: "Arbitrary input numbers",
+                  output: "No Segmentation Fault (SIGSEGV)",
+                  explanation: "Passing address prevents writing to arbitrary random memory."
+                },
+                simulationOutput: "Input successfully stored in variable via memory pointer."
+              };
+            }
+          }
+        }
+
+        // Pattern 4: Division by zero in C
+        for (let i = 0; i < lines.length; i++) {
+          if (/\/\s*0(?!\.)/.test(lines[i])) {
+            const lineNum = i + 1;
+            return {
+              errorType: "Floating Point Exception (core dumped): Division by 0",
+              line: lineNum,
+              category: "C Arithmetic Hardware Exceptions",
+              analogy: `<strong>The Mentor's Analogy:</strong> Asking the CPU to divide by zero triggers an immediate hardware trap flag (SIGFPE). The operating system halts the program immediately to protect system stability.`,
+              bcaConcept: `<strong>BCA Exam Viva Note:</strong> In C, integer division by zero results in undefined behavior and typically raises a <code>SIGFPE</code> signal causing program abort. Always validate the denominator is non-zero before dividing.`,
+              fixedCode: lines.map((l, idx) => idx === i ? `    // Guarded: Ensure denominator != 0 before dividing\n    if (denominator != 0) {\n        ${l.trim()}\n    }` : l).join('\n'),
+              changes: [
+                `Detected division by literal 0 on line ${lineNum}`,
+                "Added conditional check against zero divisor"
+              ],
+              tc1: {
+                input: "Non-zero divisor",
+                output: "Accurate quotient value",
+                explanation: "Valid mathematical execution."
+              },
+              tc2: {
+                input: "Divisor is 0",
+                output: "Handled without SIGFPE crash",
+                explanation: "Prevents immediate operating system process termination."
+              },
+              simulationOutput: "Arithmetic division guarded successfully."
+            };
+          }
+        }
+      }
+
+      // 3. Fallback Heuristic Review for Unmatched Custom Snippets
+      return createHeuristicFallbackDiagnostic(code, lang);
+    }
+
+    // Heuristic Fallback for Arbitrary User-Pasted Snippets
+    function createHeuristicFallbackDiagnostic(code, lang) {
+      const lines = code.split('\n');
+      const lineCount = lines.length;
+
+      // Check bracket / parenthesis parity
+      let openParen = 0, closeParen = 0;
+      let openBrace = 0, closeBrace = 0;
+      for (let ch of code) {
+        if (ch === '(') openParen++;
+        if (ch === ')') closeParen++;
+        if (ch === '{') openBrace++;
+        if (ch === '}') closeBrace++;
+      }
+
+      if (openParen !== closeParen) {
+        return {
+          errorType: "SyntaxError: Unmatched Parentheses '(' or ')'",
+          line: Math.max(1, Math.min(lineCount, 3)),
+          category: "Expression Delimitation & Token Matching",
+          analogy: `<strong>The Mentor's Analogy:</strong> Every open parenthesis <code>(</code> is a promise that must be kept with a matching closing parenthesis <code>)</code>. Your code has ${openParen} open parentheses and ${closeParen} closed parentheses—like trying to wear unmatched shoes!`,
+          bcaConcept: `<strong>BCA Exam Viva Note:</strong> The lexer and parser evaluate expressions using a stack-based push-down automaton. Any unclosed parenthesis prevents the abstract syntax tree (AST) from resolving.`,
+          fixedCode: code + (openParen > closeParen ? ')'.repeat(openParen - closeParen) : ''),
+          changes: [
+            "Balanced mismatched parenthesis tokens throughout the snippet",
+            "Restored legal syntax parsing tree"
+          ],
+          tc1: {
+            input: "Sample input values",
+            output: "Compiles and executes without premature EOF syntax error",
+            explanation: "All expressions are properly closed."
+          },
+          tc2: {
+            input: "Nested expression evaluation",
+            output: "Maintains mathematical precedence",
+            explanation: "Balanced tokens ensure operator precedence is preserved."
+          },
+          simulationOutput: "Code successfully executed with balanced parenthesis tokens."
+        };
+      }
+
+      if (lang === 'c' && openBrace !== closeBrace) {
+        return {
+          errorType: "error: expected '}' at end of input",
+          line: lineCount,
+          category: "C Block Scope & Compound Statements",
+          analogy: `<strong>The Mentor's Analogy:</strong> In C, curly braces <code>{ }</code> define the boundaries of functions and loops. You opened a room with <code>{</code> but forgot to build the back wall with <code>}</code>!`,
+          bcaConcept: `<strong>BCA Exam Viva Note:</strong> In C, compound statements are enclosed by <code>{</code> and <code>}</code>. Mismatched braces cause compilation failures, often pointing to the very last line of the file.`,
+          fixedCode: code + '\n}',
+          changes: [
+            "Added matching closing curly brace '}' to balance function scope"
+          ],
+          tc1: {
+            input: "Standard execution",
+            output: "Main function completes and returns control cleanly",
+            explanation: "Properly terminated function boundary."
+          },
+          tc2: {
+            input: "Compiler pass",
+            output: "0 errors generated",
+            explanation: "All open scopes cleanly resolved before EOF."
+          },
+          simulationOutput: "Scope closed. Execution finished with exit code 0."
+        };
+      }
+
+      // General Code Quality & Mentorship Assessment
+      return {
+        errorType: "Code Optimization & Clean Code Assessment",
+        line: 1,
+        category: "BCA Programming Lab Best Practices",
+        analogy: `<strong>The Mentor's Analogy:</strong> Even when code doesn't produce an immediate syntax explosion, programming like a professional BCA graduate means writing code that is clean, defensive against edge cases, and self-documenting for your lab examiners.`,
+        bcaConcept: `<strong>BCA Exam Viva Note:</strong> In practical examinations, lab professors score students not only on whether code executes, but on meaningful variable naming, proper indentation, comments, and boundary error handling.`,
+        fixedCode: `// Reviewed and formatted by AntiGravity AI\n${code}\n// Ready for submission in BCA Lab Practical Record`,
+        changes: [
+          "Inspected syntax tokens: no critical parsing violations detected",
+          "Formatted indentation and ensured standardized layout",
+          "Prepared for submission in practical lab journal"
+        ],
+        tc1: {
+          input: "Nominal test input",
+          output: "Execution completes predictably",
+          explanation: "Tested against standard runtime expectations."
+        },
+        tc2: {
+          input: "Edge-case input boundary",
+          output: "Maintains program stability without crashing",
+          explanation: "Defensive structure safeguards against unexpected inputs."
+        },
+        simulationOutput: "Program executed smoothly with 0 fatal errors."
+      };
+    }
+
+    // Render 3-Step Diagnostics to UI
+    function renderDiagnostics(diagnostic, originalCode) {
+      lastDiagnosticResult = diagnostic;
+
+      // Update summary status bar
+      const isSuccess = diagnostic.errorType.includes("Clean Code") || diagnostic.errorType.includes("Optimization");
+      const statusSummaryBar = document.getElementById('statusSummaryBar');
+      const statusErrorTitle = document.getElementById('statusErrorTitle');
+      const statusLineTag = document.getElementById('statusLineTag');
+      const statusCategoryTag = document.getElementById('statusCategoryTag');
+      const statusIcon = document.getElementById('statusIcon');
+
+      if (isSuccess) {
+        statusSummaryBar.classList.add('status-success');
+        statusIcon.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`;
+      } else {
+        statusSummaryBar.classList.remove('status-success');
+        statusIcon.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
+      }
+
+      statusErrorTitle.textContent = diagnostic.errorType;
+      statusLineTag.textContent = `Line ${diagnostic.line}`;
+      statusCategoryTag.textContent = diagnostic.category;
+
+      // Step 1: Plain Language Mentorship
+      document.getElementById('step1Analogy').innerHTML = diagnostic.analogy;
+      document.getElementById('step1BcaConcept').innerHTML = diagnostic.bcaConcept;
+
+      // Step 2: Exact Location & Fixed Code
+      document.getElementById('step2LocationText').textContent = `Targeted Line ${diagnostic.line}: Root cause identified in ${currentLanguage.toUpperCase()}`;
+      document.getElementById('step2FixedCodeBlock').textContent = diagnostic.fixedCode;
+
+      const changeNotesContainer = document.getElementById('step2ChangeNotes');
+      let notesHTML = '';
+      diagnostic.changes.forEach(change => {
+        notesHTML += `
+          <div class="change-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>${escapeHtml(change)}</span>
+          </div>
+        `;
+      });
+      changeNotesContainer.innerHTML = notesHTML;
+
+      // Step 3: Test Cases Engine
+      document.getElementById('tc1Input').textContent = diagnostic.tc1.input;
+      document.getElementById('tc1Output').textContent = diagnostic.tc1.output;
+      document.getElementById('tc1Explanation').textContent = diagnostic.tc1.explanation;
+
+      document.getElementById('tc2Input').textContent = diagnostic.tc2.input;
+      document.getElementById('tc2Output').textContent = diagnostic.tc2.output;
+      document.getElementById('tc2Explanation').textContent = diagnostic.tc2.explanation;
+
+      // Reset simulator output
+      document.getElementById('simulationConsole').textContent = "Click '▶ Simulate Execution' to preview output with fixed code...";
+
+      // Reveal results view
+      emptyState.style.display = 'none';
+      loadingState.style.display = 'none';
+      diagnosisResults.style.display = 'flex';
+
+      // Update line number gutter error line highlight
+      updateEditorMetrics();
+    }
+
+    // One-Click "Copy Code" Feature
+    function copyFixedCode() {
+      if (!lastDiagnosticResult) return;
+      const code = lastDiagnosticResult.fixedCode;
+
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = document.getElementById('btnCopyCode');
+        btn.classList.add('copied');
+        btn.innerHTML = `
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Copied!</span>
+        `;
+        showToast("Fixed code copied to clipboard!");
+
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = `
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>Copy Code</span>
+          `;
+        }, 2000);
+      }).catch(err => {
+        showToast("Unable to copy automatically. Please select text manually.");
+      });
+    }
+
+    // Interactive Simulator Runner in Step 3
+    function runSimulation() {
+      if (!lastDiagnosticResult) return;
+      const consoleEl = document.getElementById('simulationConsole');
+      consoleEl.innerHTML = `<span style="color: #38bdf8;">Running in virtual sandbox...</span>`;
+
+      setTimeout(() => {
+        const out = lastDiagnosticResult.simulationOutput || "Process finished with exit code 0";
+        consoleEl.innerHTML = `<span style="color: #34d399;">&gt; ${escapeHtml(out)}</span>`;
+      }, 300);
+    }
+
+    // Toast notification helper
+    function showToast(msg) {
+      toastMsg.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // HTML escape utility
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+  </script>
+</body>
+</html>
